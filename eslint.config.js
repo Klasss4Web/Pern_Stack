@@ -4,7 +4,7 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: 'module',
+      sourceType: 'common',
     },
     plugins: {
       prettier: require('eslint-plugin-prettier'),
