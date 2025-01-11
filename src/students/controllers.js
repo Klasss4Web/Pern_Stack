@@ -1,17 +1,26 @@
-const pool = require("../../db");
-
-const {
+// const pool = require('../../db');
+import pool from '../../db';
+import {
   allStudents,
   studentById,
   checkEmailExists,
   createNewStudent,
   removeStudentById,
   updateStudentDetailsById,
-} = require("./queries");
+} from './queries';
+
+// const {
+//   allStudents,
+//   studentById,
+//   checkEmailExists,
+//   createNewStudent,
+//   removeStudentById,
+//   updateStudentDetailsById,
+// } = require('./queries');
 
 const getStudents = (req, res) => {
   pool.query(allStudents, (error, results) => {
-    if (error) throw new Error("error", error);
+    if (error) throw new Error('error', error);
     res.status(200).json(results.rows);
   });
 };
@@ -19,10 +28,10 @@ const getStudents = (req, res) => {
 const getStudentById = (req, res) => {
   const studentId = parseInt(req.params.id);
   pool.query(studentById, [studentId], (error, results) => {
-    if (error) throw new Error("error", error);
+    if (error) throw new Error('error', error);
     if (results.rows.length < 1)
       return res.status(400).json({
-        message: "Student not found",
+        message: 'Student not found',
         success: false,
       });
     res.status(200).json(results.rows);
@@ -33,17 +42,17 @@ const addStudent = (req, res) => {
   const { name, email, dob, age } = req.body;
 
   pool.query(checkEmailExists, [email], (error, results) => {
-    if (error) throw new Error("Error creating student", error);
+    if (error) throw new Error('Error creating student', error);
     if (results.rows.length) {
       return res.status(409).json({
-        message: "Email already exists",
+        message: 'Email already exists',
         success: false,
       });
     }
     pool.query(createNewStudent, [name, email, age, dob], (error, results) => {
-      if (error) throw new Error("Error creating new student", error);
+      if (error) throw new Error('Error creating new student', error);
       res.status(201).json({
-        message: "Student created successfully!",
+        message: 'Student created successfully!',
         success: true,
       });
     });
@@ -53,17 +62,17 @@ const addStudent = (req, res) => {
 const deleteStudentById = (req, res) => {
   const studentId = parseInt(req.params.id);
   pool.query(studentById, [studentId], (error, results) => {
-    if (error) throw new Error("error", error);
+    if (error) throw new Error('error', error);
     if (!results.rows.length)
       return res.status(400).json({
-        message: "Student not found",
+        message: 'Student not found',
         success: false,
       });
 
     pool.query(removeStudentById, [studentId], (error, results) => {
-      if (error) throw new Error("error", error);
+      if (error) throw new Error('error', error);
       return res.status(200).json({
-        message: "Student deleted successfully!",
+        message: 'Student deleted successfully!',
         success: true,
       });
     });
@@ -74,10 +83,10 @@ const updateStudentById = (req, res) => {
   const studentId = parseInt(req.params.id);
   const { name } = req.body;
   pool.query(studentById, [studentId], (error, results) => {
-    if (error) throw new Error("error", error);
+    if (error) throw new Error('error', error);
     if (!results.rows.length)
       return res.status(400).json({
-        message: "Student not found",
+        message: 'Student not found',
         success: false,
       });
     console.log({ results: results?.rows });
@@ -85,9 +94,9 @@ const updateStudentById = (req, res) => {
       updateStudentDetailsById,
       [name, studentId],
       (error, results) => {
-        if (error) throw new Error("error", error);
+        if (error) throw new Error('error', error);
         return res.status(200).json({
-          message: "Student data updated successfully!",
+          message: 'Student data updated successfully!',
           success: true,
         });
       }
