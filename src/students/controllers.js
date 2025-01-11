@@ -34,7 +34,7 @@ const addStudent = (req, res) => {
   pool.query(checkEmailExists, [email], (error, results) => {
     if (error) throw new Error("Error creating student", error);
     if (results.rows.length) {
-      res.status(409).json({
+      return res.status(409).json({
         message: "Email already exists",
         success: false,
       });
@@ -54,14 +54,14 @@ const deleteStudentById = (req, res) => {
   pool.query(studentById, [studentId], (error, results) => {
     if (error) throw new Error("error", error);
     if (!results.rows.length)
-      res.status(400).json({
+      return res.status(400).json({
         message: "Student not found",
         success: false,
       });
 
     pool.query(removeStudentById, [studentId], (error, results) => {
       if (error) throw new Error("error", error);
-      res.status(200).json({
+      return res.status(200).json({
         message: "Student deleted successfully!",
         success: true,
       });
