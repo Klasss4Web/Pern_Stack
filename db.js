@@ -1,6 +1,8 @@
-const Pool = require("pg").Pool;
+// const Pool = require("pg").Pool;
+import Pool from 'pg';
+const PoolInst = Pool.Pool;
 
-const pool = new Pool({
+const pool = new PoolInst({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -8,4 +10,5 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-module.exports = pool;
+// module.exports = pool;
+export default pool;
