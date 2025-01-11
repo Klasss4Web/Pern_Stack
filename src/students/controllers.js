@@ -38,9 +38,9 @@ const addStudent = (req, res) => {
         success: false,
       });
     }
-    pool.query(createNewStudent, [name, email, dob, age], (error, results) => {
-      if (error) throw new Error("Error creating student", error);
-      res.status(200).json({
+    pool.query(createNewStudent, [name, email, age, dob], (error, results) => {
+      if (error) throw new Error("Error creating new student", error);
+      res.status(201).json({
         message: "Student created successfully!",
         success: true,
       });
