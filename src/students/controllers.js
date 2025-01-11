@@ -5,6 +5,7 @@ const {
   studentById,
   checkEmailExists,
   createNewStudent,
+  removeStudentById,
 } = require("./queries");
 
 const getStudents = (req, res) => {
@@ -48,8 +49,27 @@ const addStudent = (req, res) => {
   });
 };
 
+const deleteStudentById = (req, res) => {
+  const studentId = parseInt(req.params.id);
+  pool.query(removeStudentById, [studentId], (error, results) => {
+    console.log({ results });
+    if (error) throw new Error("error", error);
+    // if (results.rows.length < 1)
+    //   return res.status(400).json({
+    //     message: "Student not found",
+    //     success: false,
+    //   });
+
+    res.status(200).json({
+      message: "Student deleted successfully!",
+      success: true,
+    });
+  });
+};
+
 module.exports = {
   addStudent,
   getStudents,
   getStudentById,
+  deleteStudentById,
 };
