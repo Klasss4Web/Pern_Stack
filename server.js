@@ -1,9 +1,9 @@
 // const express = require('express');
 import express from 'express';
 // require("dotenv").config();
-import 'dotenv';
+import 'dotenv/config';
 // const studentRoutes = require('./src/students/routes');
-import studentRoutes from './src/students/routes';
+import studentRoutes from './src/students/routes.js';
 
 const app = express();
 const PORT = 3000;

@@ -6,7 +6,7 @@ import {
   getStudentById,
   updateStudentById,
   deleteStudentById,
-} from './controllers';
+} from './controllers.js';
 // const {
 //   getStudents,
 //   addStudent,
@@ -23,4 +23,5 @@ router.get('/:id', getStudentById);
 router.put('/:id', updateStudentById);
 router.delete('/:id', deleteStudentById);
 
-module.exports = router;
+// module.exports = router;
+export default router;

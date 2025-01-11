@@ -1,4 +1,5 @@
-// eslint.config.js
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+
 export default [
   {
     files: ['**/*.js'],
@@ -7,7 +8,7 @@ export default [
       sourceType: 'module',
     },
     plugins: {
-      prettier: require('eslint-plugin-prettier'),
+      prettier: eslintPluginPrettier,
     },
     rules: {
       'prettier/prettier': 'error',
