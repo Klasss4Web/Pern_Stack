@@ -5,10 +5,13 @@ const createNewStudent =
 const checkEmailExists = "SELECT email FROM students  WHERE email = $1";
 const removeStudentById = "DELETE FROM students WHERE id = $1";
 
+const updateStudentDetailsById = "UPDATE students SET name = $1 WHERE id = $2";
+
 module.exports = {
   allStudents,
   studentById,
   createNewStudent,
   checkEmailExists,
   removeStudentById,
+  updateStudentDetailsById,
 };
