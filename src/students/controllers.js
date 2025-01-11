@@ -1,6 +1,11 @@
 const pool = require("../../db");
 
-const { allStudents, studentById } = require("./queries");
+const {
+  allStudents,
+  studentById,
+  checkEmailExists,
+  createNewStudent,
+} = require("./queries");
 
 const getStudents = (req, res) => {
   pool.query(allStudents, (error, results) => {
@@ -22,7 +27,29 @@ const getStudentById = (req, res) => {
   });
 };
 
+const addStudent = (req, res) => {
+  const { name, email, dob, age } = req.body;
+
+  pool.query(checkEmailExists, [email], (error, results) => {
+    if (error) throw new Error("Error creating student", error);
+    if (results.rows.length) {
+      res.status(409).json({
+        message: "Email already exists",
+        success: false,
+      });
+    }
+    pool.query(createNewStudent, [name, email, dob, age], (error, results) => {
+      if (error) throw new Error("Error creating student", error);
+      res.status(200).json({
+        message: "Student created successfully!",
+        success: true,
+      });
+    });
+  });
+};
+
 module.exports = {
+  addStudent,
   getStudents,
   getStudentById,
 };
